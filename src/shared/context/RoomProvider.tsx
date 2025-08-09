@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { Room, RoomContext } from '.'
 import { mockRooms } from '@/data/data'

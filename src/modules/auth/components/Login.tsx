@@ -1,7 +1,9 @@
+'use client'
+
+import { useState } from 'react'
 import { Button } from '@/shared/components/ui/button'
 import { Input } from '@/shared/components/ui/input'
 import { useAuthContext } from '@/shared/hooks/useAuthContext'
-import { useState } from 'react'
 
 export const Login: React.FC = () => {
   const { login, setAuthView } = useAuthContext()
@@ -33,11 +35,22 @@ export const Login: React.FC = () => {
         setErrors({ form: result.message || 'Erro ao fazer login' })
       }
     } catch (error) {
+      console.error('Login error:', error)
       setErrors({ form: 'Erro ao fazer login. Tente novamente.' })
     } finally {
       setLoading(false)
     }
   }
+
+  const handleInputChange =
+    (field: 'email' | 'password') =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData(prev => ({ ...prev, [field]: e.target.value }))
+      // Limpar erro quando usuário começar a digitar
+      if (errors[field]) {
+        setErrors(prev => ({ ...prev, [field]: '' }))
+      }
+    }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4">
@@ -68,9 +81,7 @@ export const Login: React.FC = () => {
               label="Email"
               type="email"
               value={formData.email}
-              onChange={e =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleInputChange('email')}
               error={errors.email}
               placeholder="seu@email.com"
               required
@@ -80,9 +91,7 @@ export const Login: React.FC = () => {
               label="Senha"
               type="password"
               value={formData.password}
-              onChange={e =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={handleInputChange('password')}
               error={errors.password}
               placeholder="Sua senha"
               required
@@ -98,6 +107,7 @@ export const Login: React.FC = () => {
           <p className="text-gray-400 text-sm">
             Não tem uma conta?{' '}
             <button
+              type="button"
               onClick={() => setAuthView('register')}
               className="text-red-400 hover:text-red-300 font-medium transition-colors"
             >

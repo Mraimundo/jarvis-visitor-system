@@ -1,7 +1,9 @@
+import { ClientApp } from './providers'
+
 export default function Home() {
   return (
     <main>
-      <h1>Jarvis visitor system</h1>
+      <ClientApp />
     </main>
   )
 }

@@ -1,65 +1,58 @@
-import { useState } from 'react'
-import { AuthContext, User } from '.'
-import { mockUsers } from '@/data/data'
+'use client'
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
+import { ReactNode, useState } from 'react'
+import { AuthContext } from '.'
+
+interface AuthProviderProps {
+  children: ReactNode
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [authView, setAuthView] = useState<'login' | 'register'>('login')
 
-  const login = (
-    email: string,
-    password: string
-  ): { success: boolean; message?: string } => {
-    // Mock user validation
-    const user = mockUsers.find(
-      u => u.email === email && u.password === password
-    )
-    if (user) {
-      setCurrentUser(user)
-      setIsAuthenticated(true)
-      return { success: true }
+  const login = async (email: string, password: string) => {
+    // Implementar lógica de login aqui
+    try {
+      // Simular API call
+      if (email && password) {
+        setIsAuthenticated(true)
+        return { success: true }
+      }
+      return { success: false, message: 'Credenciais inválidas' }
+    } catch (error) {
+      return { success: false, message: 'Erro no servidor' }
     }
-    return { success: false, message: 'Email ou senha inválidos' }
   }
 
-  const register = (
-    userData: Omit<User, 'id' | 'role'>
-  ): { success: boolean; message?: string } => {
-    // Check if user already exists
-    if (mockUsers.some(u => u.email === userData.email)) {
-      return { success: false, message: 'Usuário com este email já existe' }
+  const register = async (userData: {
+    name: string
+    email: string
+    password: string
+  }) => {
+    // Implementar lógica de registro aqui
+    try {
+      // Simular API call
+      if (userData.name && userData.email && userData.password) {
+        setIsAuthenticated(true)
+        return { success: true }
+      }
+      return { success: false, message: 'Dados inválidos' }
+    } catch (error) {
+      return { success: false, message: 'Erro no servidor' }
     }
-
-    // Add new user
-    const newUser: User = {
-      id: mockUsers.length + 1,
-      ...userData,
-      role: 'User',
-    }
-
-    // Em um aplicativo real, você salvaria no banco de dados
-    // Por enquanto, vamos apenas atualizar nossos dados simulados
-
-    mockUsers.push(newUser)
-
-    setCurrentUser(newUser)
-    setIsAuthenticated(true)
-    return { success: true }
   }
 
   const logout = () => {
-    setCurrentUser(null)
     setIsAuthenticated(false)
+    setAuthView('login')
   }
 
   return (
     <AuthContext.Provider
       value={{
+        currentUser: null, // Implementar lógica para obter usuário atual
         isAuthenticated,
-        currentUser,
         authView,
         setAuthView,
         login,

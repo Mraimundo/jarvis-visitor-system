@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext } from 'react'
 
 export interface User {
@@ -73,16 +75,18 @@ export interface LogContextType {
 export interface AuthContextType {
   isAuthenticated: boolean
   currentUser: User | null
+
   authView: 'login' | 'register'
   setAuthView: (view: 'login' | 'register') => void
   login: (
     email: string,
     password: string
-  ) => { success: boolean; message?: string }
-  register: (userData: Omit<User, 'id' | 'role'>) => {
-    success: boolean
-    message?: string
-  }
+  ) => Promise<{ success: boolean; message?: string }>
+  register: (userData: {
+    name: string
+    email: string
+    password: string
+  }) => Promise<{ success: boolean; message?: string }>
   logout: () => void
 }
 

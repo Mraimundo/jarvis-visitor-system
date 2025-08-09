@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import Head from 'next/head'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '../styles/globals.css'
+import { AuthProvider } from '@/shared/context/AuthProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,16 +15,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Jarvis Visitor System',
-  description: '',
+  description: 'Sistema de Gerenciamento de Visitantes - Stark Industries',
   openGraph: {
     title: 'Jarvis Visitor System',
-    description: '',
-    images: [
-      {
-        url: '',
-        alt: 'Logo Jarvis Visitor System',
-      },
-    ],
+    description: 'Sistema de Gerenciamento de Visitantes - Stark Industries',
     type: 'website',
   },
 }
@@ -36,14 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <Head>
-        {/* Google search Console Configuration */}
-        <meta name="google-site-verification" content="" />
-      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )

@@ -1,11 +1,10 @@
-import { Button } from '@/shared/components/ui/button'
 import { AddVisitorModal } from './AddVisitorModal'
-import { NavButton } from '@/shared/components/NavButton'
 import { Header } from '@/shared/components/Header'
 import { DashboardView } from './DashboardView'
 import { VisitorsView } from './VisitorsView'
 import { LogsView } from './LogsView'
 import { useAppContext } from '@/shared/hooks/useAppContext'
+import { Sidebar } from '@/shared/components/Sidebar'
 
 export const ManApp: React.FC = () => {
   const { currentView, setCurrentView } = useAppContext()
@@ -15,8 +14,7 @@ export const ManApp: React.FC = () => {
       <Header />
 
       <div className="flex">
-        {/* Sidebar */}
-
+        <Sidebar />
         <main className="flex-1 p-6">
           {currentView === 'dashboard' && <DashboardView />}
           {currentView === 'visitors' && <VisitorsView />}

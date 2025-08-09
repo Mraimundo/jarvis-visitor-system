@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { Log, LogContext } from '.'
 import { mockLogs } from '@/data/data'
