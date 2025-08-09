@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import type { FormEvent, ChangeEvent } from 'react'
 import { Button } from '@/shared/components/ui/button'
 import { Input } from '@/shared/components/ui/input'
 import { useAuthContext } from '@/shared/hooks/useAuthContext'
 
-export const Login: React.FC = () => {
-  const { login, setAuthView } = useAuthContext()
+export const Login = () => {
+  const { login } = useAuthContext()
   const [formData, setFormData] = useState<{ email: string; password: string }>(
     { email: '', password: '' }
   )
@@ -23,7 +25,7 @@ export const Login: React.FC = () => {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (!validateForm()) return
@@ -43,10 +45,8 @@ export const Login: React.FC = () => {
   }
 
   const handleInputChange =
-    (field: 'email' | 'password') =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: 'email' | 'password') => (e: ChangeEvent<HTMLInputElement>) => {
       setFormData(prev => ({ ...prev, [field]: e.target.value }))
-      // Limpar erro quando usuário começar a digitar
       if (errors[field]) {
         setErrors(prev => ({ ...prev, [field]: '' }))
       }
@@ -106,13 +106,12 @@ export const Login: React.FC = () => {
         <div className="mt-6 text-center">
           <p className="text-gray-400 text-sm">
             Não tem uma conta?{' '}
-            <button
-              type="button"
-              onClick={() => setAuthView('register')}
-              className="text-red-400 hover:text-red-300 font-medium transition-colors"
+            <Link
+              href="/register"
+              className="ml-2 text-red-400 hover:text-red-300 font-medium transition-colors"
             >
               Cadastre-se
-            </button>
+            </Link>
           </p>
         </div>
       </div>
