@@ -1,3 +1,5 @@
+'use client'
+
 import { Card } from '@/shared/components/ui/card'
 import { useLogContext } from '@/shared/hooks/useLogContext'
 import { formatTime } from '@/shared/utils/formatTime'

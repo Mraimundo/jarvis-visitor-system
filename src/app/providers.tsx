@@ -7,9 +7,10 @@ import { VisitorProvider } from '@/shared/context/VisitorProvider'
 import { useAuthContext } from '@/shared/hooks/useAuthContext'
 import { Login } from '@/modules/auth/components/Login'
 import { Register } from '@/modules/auth/components/Register'
-import { ManApp } from '@/modules/dashboard/components/MainApp'
+import { ReactNode } from 'react'
+import { AuthProvider } from '@/shared/context/AuthProvider'
 
-export const ClientApp: React.FC = () => {
+export const ClientAppProvider = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, authView } = useAuthContext()
 
   if (!isAuthenticated) {
@@ -17,16 +18,14 @@ export const ClientApp: React.FC = () => {
   }
 
   return (
-    <AppProvider>
-      <VisitorProvider>
-        <RoomProvider>
-          <LogProvider>
-            <main>
-              <ManApp />
-            </main>
-          </LogProvider>
-        </RoomProvider>
-      </VisitorProvider>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <VisitorProvider>
+          <RoomProvider>
+            <LogProvider>{children}</LogProvider>
+          </RoomProvider>
+        </VisitorProvider>
+      </AppProvider>
+    </AuthProvider>
   )
 }

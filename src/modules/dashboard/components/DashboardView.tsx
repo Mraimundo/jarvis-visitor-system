@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/shared/components/ui/button'
 import { Card } from '@/shared/components/ui/card'
 import { useAppContext } from '@/shared/hooks/useAppContext'
