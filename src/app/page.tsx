@@ -1,11 +1,5 @@
-import { DashboardView } from '@/modules/dashboard/components/DashboardView'
-import { AddVisitorModal } from '@/modules/dashboard/components/AddVisitorModal'
+import { Login } from '@/modules/auth/components/Login'
 
-export default function Home() {
-  return (
-    <>
-      <DashboardView />
-      <AddVisitorModal />
-    </>
-  )
+export default function LoginPage() {
+  return <Login />
 }

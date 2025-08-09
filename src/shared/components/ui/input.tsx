@@ -1,16 +1,16 @@
-import React from 'react'
+import type { ChangeEventHandler } from 'react'
 
 type InputProps = {
   label: string
   type?: string
   value: string
-  onChange: React.ChangeEventHandler<HTMLInputElement>
+  onChange: ChangeEventHandler<HTMLInputElement>
   error?: string
   placeholder?: string
   required?: boolean
 }
 
-export const Input: React.FC<InputProps> = ({
+export const Input = ({
   label,
   type = 'text',
   value,
@@ -18,7 +18,7 @@ export const Input: React.FC<InputProps> = ({
   error,
   placeholder,
   required = false,
-}) => (
+}: InputProps) => (
   <div className="space-y-2">
     <label className="block text-sm font-medium text-gray-300">
       {label} {required && <span className="text-red-400">*</span>}

@@ -9,7 +9,7 @@ interface NavLinkProps {
   label: string
 }
 
-export const NavLink: React.FC<NavLinkProps> = ({ href, icon, label }) => {
+export const NavLink = ({ href, icon, label }: NavLinkProps) => {
   const pathname = usePathname()
   const isActive = pathname === href
 

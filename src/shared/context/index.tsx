@@ -75,9 +75,6 @@ export interface LogContextType {
 export interface AuthContextType {
   isAuthenticated: boolean
   currentUser: User | null
-
-  authView: 'login' | 'register'
-  setAuthView: (view: 'login' | 'register') => void
   login: (
     email: string,
     password: string

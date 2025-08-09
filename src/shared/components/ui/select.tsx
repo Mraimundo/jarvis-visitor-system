@@ -1,3 +1,5 @@
+import type { ChangeEventHandler } from 'react'
+
 type Option = {
   id: string | number
   name: string
@@ -9,20 +11,20 @@ type Option = {
 type SelectProps = {
   label: string
   value: string | number
-  onChange: React.ChangeEventHandler<HTMLSelectElement>
+  onChange: ChangeEventHandler<HTMLSelectElement>
   options: Option[]
   error?: string
   required?: boolean
 }
 
-export const Select: React.FC<SelectProps> = ({
+export const Select = ({
   label,
   value,
   onChange,
   options,
   error,
   required = false,
-}) => (
+}: SelectProps) => (
   <div className="space-y-2">
     <label className="block text-sm font-medium text-gray-300">
       {label} {required && <span className="text-red-400">*</span>}

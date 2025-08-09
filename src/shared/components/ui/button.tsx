@@ -1,4 +1,4 @@
-import React, { ReactNode, ButtonHTMLAttributes } from 'react'
+import type { ReactNode, ButtonHTMLAttributes } from 'react'
 
 type ButtonProps = {
   children: ReactNode
@@ -16,7 +16,7 @@ export const Button = ({
   ...rest
 }: ButtonProps) => {
   const baseClasses =
-    'rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900'
+    'rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer'
 
   const sizes = {
     xs: 'px-2 py-1 text-xs',
@@ -38,7 +38,9 @@ export const Button = ({
     <button
       disabled={disabled}
       className={`${baseClasses} ${sizes[size]} ${variants[variant]} ${
-        disabled ? 'opacity-50 cursor-not-allowed' : ''
+        disabled
+          ? 'opacity-50 cursor-not-allowed hover:cursor-not-allowed'
+          : 'hover:cursor-pointer'
       } ${className}`}
       {...rest}
     >

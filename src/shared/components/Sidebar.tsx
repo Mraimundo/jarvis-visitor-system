@@ -17,7 +17,7 @@ export function Sidebar() {
       </div>
 
       <nav className="space-y-2">
-        <NavLink href="/" icon="📊" label="Dashboard" />
+        <NavLink href="/dashboard" icon="📊" label="Dashboard" />
         <NavLink href="/visitors" icon="👥" label="Visitantes" />
         <NavLink href="/logs" icon="📋" label="Logs do Sistema" />
       </nav>
