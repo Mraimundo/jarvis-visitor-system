@@ -10,8 +10,9 @@ import { useLogContext } from '@/shared/hooks/useLogContext'
 import { useRoomContext } from '@/shared/hooks/useRoomContext'
 import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
 import { validateCPF } from '@/shared/utils/validateCPF'
+import type { FormEvent } from 'react'
 
-export const AddVisitorModal: React.FC = () => {
+export const AddVisitorModal = () => {
   const {
     showAddVisitor,
     setShowAddVisitor,
@@ -29,7 +30,7 @@ export const AddVisitorModal: React.FC = () => {
 
   if (!showAddVisitor) return null
 
-  const handleAddVisitor = (e: React.FormEvent) => {
+  const handleAddVisitor = (e: FormEvent) => {
     e.preventDefault()
     const newErrors: Record<string, string> = {}
 

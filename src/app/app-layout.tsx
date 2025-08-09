@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Sidebar } from '@/shared/components/Sidebar'
 import { Header } from '@/shared/components/Header'
 import { AddVisitorModal } from '@/modules/dashboard/components/AddVisitorModal'

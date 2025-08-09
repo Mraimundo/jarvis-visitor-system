@@ -9,7 +9,7 @@ import { useRoomContext } from '@/shared/hooks/useRoomContext'
 import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
 import { formatTime } from '@/shared/utils/formatTime'
 
-export const VisitorsView: React.FC = () => {
+export const VisitorsView = () => {
   const { visitors, updateVisitor } = useVisitorContext()
   const { rooms, updateRoom } = useRoomContext()
   const { addLog } = useLogContext()
@@ -24,7 +24,6 @@ export const VisitorsView: React.FC = () => {
     if (!room) return
 
     if (room.current >= room.capacity) {
-      alert('Sala lotada! Visitante colocado na fila de espera.')
       return
     }
 
@@ -75,6 +74,28 @@ export const VisitorsView: React.FC = () => {
     })
   }
 
+  const getStatusDisplay = (status: string) => {
+    switch (status) {
+      case 'active':
+        return 'Ativo'
+      case 'waiting':
+        return 'Espera'
+      default:
+        return 'Saída'
+    }
+  }
+
+  const getStatusStyles = (status: string) => {
+    switch (status) {
+      case 'active':
+        return 'bg-green-900/50 text-green-300'
+      case 'waiting':
+        return 'bg-yellow-900/50 text-yellow-300'
+      default:
+        return 'bg-gray-700 text-gray-300'
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -119,71 +140,71 @@ export const VisitorsView: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800">
-              {visitors.map(visitor => (
-                <tr
-                  key={visitor.id}
-                  className="hover:bg-gray-800/30 transition-colors"
-                >
-                  <td className="py-4 px-4">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={visitor.photo}
-                        alt={visitor.name}
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <div>
-                        <p className="text-white font-medium">{visitor.name}</p>
-                        <p className="text-gray-400 text-sm">{visitor.email}</p>
+              {visitors.map(visitor => {
+                const room = rooms.find(r => r.id === visitor.destination)
+                const isFull = room ? room.current >= room.capacity : false
+
+                return (
+                  <tr
+                    key={visitor.id}
+                    className="hover:bg-gray-800/30 transition-colors"
+                  >
+                    <td className="py-4 px-4">
+                      <div className="flex items-center space-x-3">
+                        <img
+                          src={visitor.photo}
+                          alt={visitor.name}
+                          className="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                          <p className="text-white font-medium">
+                            {visitor.name}
+                          </p>
+                          <p className="text-gray-400 text-sm">
+                            {visitor.email}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="py-4 px-4 text-gray-300">{visitor.cpf}</td>
-                  <td className="py-4 px-4 text-gray-300">
-                    Sala {visitor.destination}
-                  </td>
-                  <td className="py-4 px-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        visitor.status === 'active'
-                          ? 'bg-green-900/50 text-green-300'
-                          : visitor.status === 'waiting'
-                            ? 'bg-yellow-900/50 text-yellow-300'
-                            : 'bg-gray-700 text-gray-300'
-                      }`}
-                    >
-                      {visitor.status === 'active'
-                        ? 'Ativo'
-                        : visitor.status === 'waiting'
-                          ? 'Espera'
-                          : 'Saída'}
-                    </span>
-                  </td>
-                  <td className="py-4 px-4 text-gray-300">
-                    {visitor.entryTime ? formatTime(visitor.entryTime) : '-'}
-                  </td>
-                  <td className="py-4 px-4">
-                    {visitor.status === 'waiting' ? (
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={() => handleEntry(visitor.id)}
+                    </td>
+                    <td className="py-4 px-4 text-gray-300">{visitor.cpf}</td>
+                    <td className="py-4 px-4 text-gray-300">
+                      Sala {visitor.destination}
+                    </td>
+                    <td className="py-4 px-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusStyles(visitor.status)}`}
                       >
-                        Liberar
-                      </Button>
-                    ) : visitor.status === 'active' ? (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleExit(visitor.id)}
-                      >
-                        Sair
-                      </Button>
-                    ) : (
-                      <span className="text-gray-500 text-sm">Concluído</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                        {getStatusDisplay(visitor.status)}
+                      </span>
+                    </td>
+                    <td className="py-4 px-4 text-gray-300">
+                      {visitor.entryTime ? formatTime(visitor.entryTime) : '-'}
+                    </td>
+                    <td className="py-4 px-4">
+                      {visitor.status === 'waiting' ? (
+                        <Button
+                          variant={isFull ? 'outline' : 'success'}
+                          size="sm"
+                          onClick={() => !isFull && handleEntry(visitor.id)}
+                          disabled={isFull}
+                        >
+                          {isFull ? 'Sala Lotada' : 'Liberar'}
+                        </Button>
+                      ) : visitor.status === 'active' ? (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleExit(visitor.id)}
+                        >
+                          Sair
+                        </Button>
+                      ) : (
+                        <span className="text-gray-500 text-sm">Concluído</span>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>

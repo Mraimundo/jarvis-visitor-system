@@ -10,7 +10,7 @@ import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
 import { formatTime } from '@/shared/utils/formatTime'
 import { getStayDuration } from '@/shared/utils/getStayDuration'
 
-export const DashboardView: React.FC = () => {
+export const DashboardView = () => {
   const { visitors, updateVisitor } = useVisitorContext()
   const { rooms, updateRoom } = useRoomContext()
   const { addLog } = useLogContext()
@@ -25,7 +25,6 @@ export const DashboardView: React.FC = () => {
     if (!room) return
 
     if (room.current >= room.capacity) {
-      alert('Sala lotada! Visitante colocado na fila de espera.')
       return
     }
 

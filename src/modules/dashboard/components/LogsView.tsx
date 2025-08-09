@@ -4,7 +4,7 @@ import { Card } from '@/shared/components/ui/card'
 import { useLogContext } from '@/shared/hooks/useLogContext'
 import { formatTime } from '@/shared/utils/formatTime'
 
-export const LogsView: React.FC = () => {
+export const LogsView = () => {
   const { logs } = useLogContext()
 
   const formatDate = (dateString: string) => {
