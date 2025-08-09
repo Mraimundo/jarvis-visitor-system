@@ -1,6 +1,8 @@
 'use client'
 
-import { ReactNode, useEffect, useState } from 'react'
+import type { ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { AuthContext, AuthContextType, User } from '.'
 
 interface AuthProviderProps {
@@ -32,10 +34,10 @@ const TEST_CREDENTIALS = {
   },
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const router = useRouter()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [currentUser, setCurrentUser] = useState<User | null>(null)
-  const [authView, setAuthView] = useState<'login' | 'register'>('login')
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -148,12 +150,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     setIsAuthenticated(false)
     setCurrentUser(null)
-    setAuthView('login')
+    router.push('/')
+    router.refresh()
 
     localStorage.removeItem('jarvis_auth')
     localStorage.removeItem('jarvis_user')
 
-    console.log('Usuário deslogado com sucesso')
+    console.warn('Usuário deslogado com sucesso')
   }
 
   if (isLoading) {
@@ -172,8 +175,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const contextValue: AuthContextType = {
     isAuthenticated,
     currentUser,
-    authView,
-    setAuthView,
     login,
     register,
     logout,
