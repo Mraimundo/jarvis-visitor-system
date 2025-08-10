@@ -9,7 +9,7 @@ import { LogProvider } from '@/shared/context/LogProvider'
 import { RoomProvider } from '@/shared/context/RoomProvider'
 import { VisitorProvider } from '@/shared/context/VisitorProvider'
 import { useAuthContext } from '@/shared/hooks/useAuthContext'
-import { Login } from '@/modules/auth/components/Login'
+import { LoginForm } from '@/modules/auth/components/LoginForm'
 import { AuthProvider } from '@/shared/context/AuthProvider'
 
 const protectedRoutes = ['/dashboard', '/visitors', '/rooms', '/logs']
@@ -53,7 +53,7 @@ function AuthGate({ children }: { children: ReactNode }) {
 
   if (!isAuthenticated) {
     if (isProtectedRoute(pathname) || pathname === '/') {
-      return <Login />
+      return <LoginForm />
     }
   }
 
