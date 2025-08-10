@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { AuthContext, AuthContextType, User } from '.'
+import { LoadingSkeleton } from '../components/LoadingSkeleton'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -160,16 +161,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-400 text-4xl font-bold mb-4 animate-pulse">
-            J.A.R.V.I.S.
-          </div>
-          <div className="text-gray-400 text-sm">Inicializando sistema...</div>
-        </div>
-      </div>
-    )
+    return <LoadingSkeleton />
   }
 
   const contextValue: AuthContextType = {
