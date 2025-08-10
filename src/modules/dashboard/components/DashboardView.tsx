@@ -1,5 +1,6 @@
 'use client'
 
+import { Plus } from 'lucide-react'
 import { Button } from '@/shared/components/ui/button'
 import { Card } from '@/shared/components/ui/card'
 import { useAppContext } from '@/shared/hooks/useAppContext'
@@ -96,7 +97,7 @@ export const DashboardView = () => {
           onClick={() => setShowAddVisitor(true)}
           className="flex items-center space-x-2"
         >
-          <span>+</span>
+          <Plus className="size-8" />
           <span>Novo Visitante</span>
         </Button>
       </div>

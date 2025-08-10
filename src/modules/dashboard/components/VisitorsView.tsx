@@ -8,6 +8,7 @@ import { useLogContext } from '@/shared/hooks/useLogContext'
 import { useRoomContext } from '@/shared/hooks/useRoomContext'
 import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
 import { formatTime } from '@/shared/utils/formatTime'
+import { Plus } from 'lucide-react'
 
 export const VisitorsView = () => {
   const { visitors, updateVisitor } = useVisitorContext()
@@ -109,7 +110,7 @@ export const VisitorsView = () => {
           onClick={() => setShowAddVisitor(true)}
           className="flex items-center space-x-2"
         >
-          <span>+</span>
+          <Plus className="size-8" />
           <span>Novo Visitante</span>
         </Button>
       </div>
