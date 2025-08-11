@@ -10,7 +10,7 @@ export const mockVisitors: Visitor[] = [
     birthDate: '1970-05-29',
     photo: 'https://placehold.co/100x100/1a1a1a/e63946?text=TS',
     status: 'active',
-    entryTime: '2023-07-15T08:30:00',
+    entryTime: '2025-08-11T08:30:00',
     floor: 42,
   },
   {
@@ -22,7 +22,7 @@ export const mockVisitors: Visitor[] = [
     birthDate: '1978-02-15',
     photo: 'https://placehold.co/100x100/1a1a1a/4d96ff?text=PP',
     status: 'active',
-    entryTime: '2023-07-15T09:15:00',
+    entryTime: '2025-08-10T09:15:00',
     floor: 42,
   },
   {
