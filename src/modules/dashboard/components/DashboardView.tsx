@@ -10,13 +10,16 @@ import { useRoomContext } from '@/shared/hooks/useRoomContext'
 import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
 import { formatTime } from '@/shared/utils/formatTime'
 import { getStayDuration } from '@/shared/utils/getStayDuration'
+import { useOverviewDashboard } from '@/shared/http/use-overview-dashboard'
 
 export const DashboardView = () => {
+  // const { data } = useOverviewDashboard()
+  const { currentUser } = useAuthContext()
+
   const { visitors, updateVisitor } = useVisitorContext()
   const { rooms, updateRoom } = useRoomContext()
   const { addLog } = useLogContext()
   const { setShowAddVisitor } = useAppContext()
-  const { currentUser } = useAuthContext()
 
   const handleEntry = (visitorId: number) => {
     const visitor = visitors.find(v => v.id === visitorId)

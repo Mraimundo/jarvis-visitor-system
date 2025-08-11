@@ -11,10 +11,8 @@ export const VisitorProvider: React.FC<{ children: React.ReactNode }> = ({
   const [visitors, setVisitors] = useState<Visitor[]>([])
 
   useEffect(() => {
-    // Initialize with mock data
     setVisitors(mockVisitors)
 
-    // Simulate real-time updates
     const interval = setInterval(() => {
       setVisitors(prev => [...prev])
     }, 30000)
