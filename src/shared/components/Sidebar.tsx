@@ -29,18 +29,25 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
         `}
       >
         <div className="mb-8">
-          <div className="text-red-400 text-2xl font-bold mb-2">J.A.R.V.I.S.</div>
-          {currentUser && <div className="text-sm text-gray-400">Olá, {currentUser.name}</div>}
+          <div className="text-red-400 text-2xl font-bold mb-2">
+            J.A.R.V.I.S.
+          </div>
+          {currentUser && (
+            <div className="text-sm text-gray-400">Olá, {currentUser.name}</div>
+          )}
         </div>
 
         <nav className="space-y-2">
           <NavLink href="/dashboard" icon="📊" label="Dashboard" />
           <NavLink href="/visitors" icon="👥" label="Visitantes" />
           <NavLink href="/logs" icon="📋" label="Logs do Sistema" />
+          <NavLink href="/rooms" icon="🏢" label="Salas" />
         </nav>
 
         <div className="mt-8 pt-6 border-t border-gray-800">
-          <Button variant="secondary" className="w-full" onClick={logout}>Sair</Button>
+          <Button variant="secondary" className="w-full" onClick={logout}>
+            Sair
+          </Button>
         </div>
       </CollapsibleContent>
     </>

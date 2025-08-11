@@ -27,7 +27,7 @@ const addVisitorSchema = z.object({
 
 type AddVisitorFormData = z.infer<typeof addVisitorSchema>
 
-export const AddVisitorModal = () => {
+export const AddVisitorModalForm = () => {
   const { showAddVisitor, setShowAddVisitor } = useAppContext()
   const { currentUser } = useAuthContext()
   const { visitors, addVisitor } = useVisitorContext()
@@ -72,7 +72,7 @@ export const AddVisitorModal = () => {
       action: 'visitor_registered',
       user: currentUser?.name || 'Unknown',
       timestamp: new Date().toISOString(),
-      details: `${visitor.name} registered for room ${visitor.destination}`,
+      details: `${visitor.name} registrado para sala ${visitor.destination}`,
     })
   }
 

@@ -39,8 +39,7 @@ export const Select = ({
       <option value="">Selecione...</option>
       {options.map(option => (
         <option key={option.id} value={option.id}>
-          {option.name} (Andar {option.floor}) - {option.current}/
-          {option.capacity}
+          Sala {option.id}
         </option>
       ))}
     </select>

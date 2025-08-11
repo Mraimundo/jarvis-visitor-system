@@ -37,12 +37,36 @@ export const mockVisitors: Visitor[] = [
     entryTime: null,
     floor: 45,
   },
+  {
+    id: 4,
+    name: 'Lembro James',
+    cpf: '456.389.122-00',
+    email: 'lembro@starkindustries.com',
+    destination: '5001',
+    birthDate: '1969-12-18',
+    photo: 'https://placehold.co/100x100/1a1a1a/2a9d8f?text=LJ',
+    status: 'active',
+    entryTime: null,
+    floor: 45,
+  },
+  {
+    id: 5,
+    name: 'Pedro Tungadio',
+    cpf: '456.789.123-00',
+    email: 'bruce@starkindustries.com',
+    destination: '4501',
+    birthDate: '1998-12-18',
+    photo: 'https://placehold.co/100x100/1a1a1a/2a9d8f?text=PT',
+    status: 'waiting',
+    entryTime: null,
+    floor: 45,
+  },
 ]
 
 export const mockRooms: Room[] = [
   { id: '4201', floor: 42, capacity: 3, current: 1, name: 'CEO Office' },
   { id: '4202', floor: 42, capacity: 3, current: 1, name: 'Executive Suite' },
-  { id: '4501', floor: 45, capacity: 3, current: 1, name: 'R&D Lab' },
+  { id: '4501', floor: 45, capacity: 3, current: 2, name: 'R&D Lab' },
   { id: '5001', floor: 50, capacity: 3, current: 0, name: 'Observation Deck' },
 ]
 
@@ -52,21 +76,21 @@ export const mockLogs: Log[] = [
     action: 'visitor_registered',
     user: 'Jarvis',
     timestamp: '2023-07-15T08:30:00',
-    details: 'Tony Stark registered for room 4201',
+    details: 'Tony Stark se registrou na Sala 4201',
   },
   {
     id: 2,
     action: 'access_granted',
     user: 'Security System',
     timestamp: '2023-07-15T08:31:00',
-    details: 'Access granted to Tony Stark (room 4201)',
+    details: 'Acesso concedido a Tony Stark (Sala 4201)',
   },
   {
     id: 3,
     action: 'visitor_registered',
     user: 'Jarvis',
     timestamp: '2023-07-15T09:15:00',
-    details: 'Pepper Potts registered for room 4202',
+    details: 'Pepper Potts se registrou na Sala 4202',
   },
 ]
 
