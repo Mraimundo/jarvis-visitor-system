@@ -89,43 +89,19 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 4. Acesse a aplicação em `http://localhost:3000`
 
+```bash
+# Usuarios de teste para Logar:
+$ email: 'admin@stark.com',
+$ password: '123456',
+
+$ email: 'user@stark.com',
+$ password: '123456',
+```
 ### Scripts Disponíveis
 
 - `npm run dev` - Inicia o servidor de desenvolvimento
 - `npm run build` - Gera build de produção
 - `npm run test` - Gera testes 
 
-### Backend
-
-O projeto consome uma API que deve estar rodando na porta 3333. Certifique-se de que o backend esteja configurado e executando antes de iniciar o frontend.
-
-### Instruções
-
-1. Clone o repositório []()
-
-#### Passo a passo para rodar o servidor
-
-```bash
-# Instale as dependências:
-$ npm install
-
-# Na raiz do projeto crie o arquivo .env e depois copie e cole os dados que estão no arquivo .env.example
-
-# Criar as tabelas: Execute no seu terminal
-$ npx prisma migrate dev
-
-# Visualizar o Banco de Dados: Execute no seu terminal
-$ npx prisma studio
-
-# Execute o servidor de desenvolvimento
-$ npm run dev
-
-$ em seguida [localhost:333](http://localhost:333)
-
-# Baixe e instale o postman para simular os endpoints
-# Importe a collection do postman e agora é só testar
-
-OBS: Na raiz do projeto tem a collection para importar
-```
 
 Feito com horas em frente ao :computer: por [Mouzinho Feliz Raimundo](https://www.linkedin.com/in/mouzinho-raimundo/)
