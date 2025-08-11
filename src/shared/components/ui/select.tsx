@@ -10,7 +10,7 @@ type Option = {
 
 type SelectProps = {
   label: string
-  value: string | number
+  value?: string | number
   onChange: ChangeEventHandler<HTMLSelectElement>
   options: Option[]
   error?: string

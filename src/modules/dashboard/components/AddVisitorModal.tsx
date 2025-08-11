@@ -1,5 +1,8 @@
 'use client'
 
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/shared/components/ui/button'
 import { Input } from '@/shared/components/ui/input'
 import { Select } from '@/shared/components/ui/select'
@@ -10,67 +13,59 @@ import { useLogContext } from '@/shared/hooks/useLogContext'
 import { useRoomContext } from '@/shared/hooks/useRoomContext'
 import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
 import { validateCPF } from '@/shared/utils/validateCPF'
-import type { FormEvent } from 'react'
+
+const addVisitorSchema = z.object({
+  name: z.string().min(1, 'Nome é obrigatório'),
+  cpf: z
+    .string()
+    .refine(validateCPF, { message: 'CPF inválido' })
+    .min(1, 'CPF é obrigatória'),
+  email: z.string().email({ message: 'E-mail inválido' }),
+  birthDate: z.string(),
+  destination: z.string().min(0, 'Sala de destino é obrigatória'),
+})
+
+type AddVisitorFormData = z.infer<typeof addVisitorSchema>
 
 export const AddVisitorModal = () => {
-  const {
-    showAddVisitor,
-    setShowAddVisitor,
-    newVisitor,
-    setNewVisitor,
-    errors,
-    setErrors,
-  } = useAppContext()
-
+  const { showAddVisitor, setShowAddVisitor } = useAppContext()
   const { currentUser } = useAuthContext()
-
   const { visitors, addVisitor } = useVisitorContext()
   const { rooms } = useRoomContext()
   const { addLog } = useLogContext()
 
-  if (!showAddVisitor) return null
-
-  const handleAddVisitor = (e: FormEvent) => {
-    e.preventDefault()
-    const newErrors: Record<string, string> = {}
-
-    if (!newVisitor.name) newErrors.name = 'Nome é obrigatório'
-    if (!newVisitor.cpf || !validateCPF(newVisitor.cpf || ''))
-      newErrors.cpf = 'CPF inválido'
-    if (!newVisitor.email) newErrors.email = 'E-mail é obrigatório'
-    if (!newVisitor.destination)
-      newErrors.destination = 'Sala de destino é obrigatória'
-    if (!newVisitor.birthDate)
-      newErrors.birthDate = 'Data de nascimento é obrigatória'
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      return
-    }
-
-    const visitor: Visitor = {
-      id: visitors.length + 1,
-      ...(newVisitor as Omit<
-        Visitor,
-        'id' | 'status' | 'entryTime' | 'exitTime' | 'floor' | 'photo'
-      >),
-      status: 'waiting',
-      entryTime: null,
-      floor: parseInt(newVisitor.destination?.substring(0, 2) || '0'),
-      photo: `https://placehold.co/100x100/1a1a1a/e63946?text=${newVisitor.name?.charAt(0).toUpperCase() || 'V'}`,
-    }
-
-    addVisitor(visitor)
-    setNewVisitor({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<AddVisitorFormData>({
+    resolver: zodResolver(addVisitorSchema),
+    defaultValues: {
       name: '',
       cpf: '',
       email: '',
-      destination: '',
       birthDate: '',
-      photo: '',
-    })
+      destination: '',
+    },
+  })
+
+  if (!showAddVisitor) return null
+
+  const onSubmit = (data: AddVisitorFormData) => {
+    const visitor: Visitor = {
+      id: visitors.length + 1,
+      ...data,
+      status: 'waiting',
+      entryTime: null,
+      floor: parseInt(data.destination.substring(0, 2) || '0'),
+      photo: `https://placehold.co/100x100/1a1a1a/e63946?text=${data.name.charAt(0).toUpperCase()}`,
+    }
+
+    addVisitor(visitor)
+
+    reset()
     setShowAddVisitor(false)
-    setErrors({})
 
     addLog({
       id: Date.now(),
@@ -91,61 +86,46 @@ export const AddVisitorModal = () => {
           <p className="text-gray-400 mt-1">Preencha os dados do visitante</p>
         </div>
 
-        <form onSubmit={handleAddVisitor} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
           <Input
             label="Nome Completo"
-            value={newVisitor.name || ''}
-            onChange={e =>
-              setNewVisitor({ ...newVisitor, name: e.target.value })
-            }
-            error={errors.name}
             placeholder="Ex: Tony Stark"
+            error={errors.name?.message}
             required
+            {...register('name')}
           />
 
           <Input
             label="CPF"
-            value={newVisitor.cpf || ''}
-            onChange={e =>
-              setNewVisitor({ ...newVisitor, cpf: e.target.value })
-            }
-            error={errors.cpf}
             placeholder="000.000.000-00"
+            error={errors.cpf?.message}
             required
+            {...register('cpf')}
           />
 
           <Input
             label="E-mail"
             type="email"
-            value={newVisitor.email || ''}
-            onChange={e =>
-              setNewVisitor({ ...newVisitor, email: e.target.value })
-            }
-            error={errors.email}
             placeholder="email@empresa.com"
+            error={errors.email?.message}
             required
+            {...register('email')}
           />
 
           <Input
             label="Data de Nascimento"
             type="date"
-            value={newVisitor.birthDate || ''}
-            onChange={e =>
-              setNewVisitor({ ...newVisitor, birthDate: e.target.value })
-            }
-            error={errors.birthDate}
+            error={errors.birthDate?.message}
             required
+            {...register('birthDate')}
           />
 
           <Select
             label="Sala de Destino"
-            value={newVisitor.destination || ''}
-            onChange={e =>
-              setNewVisitor({ ...newVisitor, destination: e.target.value })
-            }
             options={rooms}
-            error={errors.destination}
+            error={errors.destination?.message}
             required
+            {...register('destination')}
           />
 
           <div className="pt-2">
@@ -155,9 +135,13 @@ export const AddVisitorModal = () => {
           </div>
 
           <Button
+            type="button"
             variant="outline"
             className="w-full"
-            onClick={() => setShowAddVisitor(false)}
+            onClick={() => {
+              reset()
+              setShowAddVisitor(false)
+            }}
           >
             Cancelar
           </Button>
