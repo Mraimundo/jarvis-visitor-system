@@ -20,7 +20,7 @@ export interface Visitor {
   photo: string
   status: 'active' | 'waiting' | 'exited'
   entryTime: string | null
-  exitTime?: string
+  exitTime?: string | null
   floor: number
 }
 

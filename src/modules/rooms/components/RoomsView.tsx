@@ -102,7 +102,7 @@ export const RoomsView = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="lg:text-3xl text-lg font-bold text-white">
-            Controle de Salas e Visitantes
+            Controle de Salas, Visitantes e Entrada/Saída
           </h1>
         </div>
       </div>
@@ -161,8 +161,9 @@ export const RoomsView = () => {
                     <td className="py-4 px-4 text-gray-300">
                       {visitor.entryTime ? formatTime(visitor.entryTime) : '-'}
                     </td>
+
                     <td className="py-4 px-4 text-gray-300">
-                      {visitor.entryTime ? formatTime(visitor.entryTime) : '-'}
+                      {visitor.exitTime ? formatTime(visitor.exitTime) : '-'}
                     </td>
                   </tr>
                 )

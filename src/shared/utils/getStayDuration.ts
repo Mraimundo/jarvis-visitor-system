@@ -1,11 +1,13 @@
-export const getStayDuration = (entryTime: string | null): string => {
+export const getStayDuration = (
+  entryTime: string | null,
+  exitTime?: string | null
+): string => {
   if (!entryTime) return '0 min'
 
   const start = new Date(entryTime)
-  const end = new Date()
+  const end = exitTime ? new Date(exitTime) : new Date()
 
   const diffMs = end.getTime() - start.getTime()
-
   if (diffMs < 0) return '0 min'
 
   const diffMins = Math.floor(diffMs / 60000)

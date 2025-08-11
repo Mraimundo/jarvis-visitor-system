@@ -41,7 +41,7 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
           <NavLink href="/dashboard" icon="📊" label="Dashboard" />
           <NavLink href="/visitors" icon="👥" label="Visitantes" />
           <NavLink href="/logs" icon="📋" label="Logs do Sistema" />
-          <NavLink href="/rooms" icon="🏢" label="Salas" />
+          <NavLink href="/rooms" icon="🏢" label="Salas Entra/Saida" />
         </nav>
 
         <div className="mt-8 pt-6 border-t border-gray-800">

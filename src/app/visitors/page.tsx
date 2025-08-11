@@ -1,4 +1,4 @@
-import { VisitorsView } from '@/modules/dashboard/components/VisitorsView'
+import { VisitorsView } from '@/modules/visitors/components/VisitorsView'
 
 export default function VisitorsPage() {
   return (
