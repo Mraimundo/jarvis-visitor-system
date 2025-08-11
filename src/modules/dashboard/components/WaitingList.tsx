@@ -46,7 +46,9 @@ export function WaitingList() {
 
   return (
     <Card>
-      <h3 className="text-xl font-semibold text-white mb-4">Fila de Espera</h3>
+      <h3 className="lg:text-xl text-lg font-semibold text-white mb-4">
+        Fila de Espera
+      </h3>
       <div className="space-y-3">
         {waitingVisitors.length === 0 ? (
           <p className="text-gray-500 text-center py-8">

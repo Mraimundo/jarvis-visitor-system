@@ -15,7 +15,7 @@ export function RoomStatus() {
 
   return (
     <Card>
-      <h3 className="text-xl font-semibold text-white mb-4">
+      <h3 className="lg:text-xl text-lg font-semibold text-white mb-4">
         Status das Salas
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

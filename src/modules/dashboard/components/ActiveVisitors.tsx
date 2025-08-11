@@ -44,7 +44,7 @@ export function ActiveVisitors() {
 
   return (
     <Card className="lg:col-span-2">
-      <h3 className="text-xl font-semibold text-white mb-4">
+      <h3 className="lg:text-xl text-lg font-semibold text-white mb-4">
         Visitantes Ativos
       </h3>
       <div className="space-y-3">

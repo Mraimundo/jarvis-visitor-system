@@ -19,7 +19,7 @@ export const DashboardView = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white">
+          <h1 className="lg:text-3xl text-lg font-bold text-white">
             Dashboard de Visitantes
           </h1>
           <p className="text-gray-400 mt-1">
@@ -27,10 +27,11 @@ export const DashboardView = () => {
           </p>
         </div>
         <Button
+          size="sm"
           onClick={() => setShowAddVisitor(true)}
           className="flex items-center space-x-2"
         >
-          <Plus className="size-8" />
+          <Plus className="size-6" />
           <span>Novo Visitante</span>
         </Button>
       </div>
