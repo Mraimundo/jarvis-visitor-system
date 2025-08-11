@@ -48,8 +48,9 @@ Desenvolvimento de um sistema integrado de gerenciamento de visitantes que autom
 - **TypeScript 5** - Superset JavaScript com tipagem estática
 - **Next 15.4** - Framework para interface de usuário
 - **TailwindCSS 3.3** - Framework CSS utility-first
-- **react-hook-form/zod - Biblioteca de validacao de formulario
+- **react-hook-form/zod** - Biblioteca de validacao de formulario
 - **TanStack React Query 5.8** - Gerenciamento de estado servidor e cache
+- **Jest e React Testing Library** - Bibliotecas para gerar testes unitario e de integracao
 - **Radix UI** - Componentes primitivos acessíveis
 - **Shadcn/ui** - Sistema de componentes
 - **Lucide React** - Biblioteca de ícones
@@ -92,6 +93,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 - `npm run dev` - Inicia o servidor de desenvolvimento
 - `npm run build` - Gera build de produção
+- `npm run test` - Gera testes 
 
 ### Backend
 
