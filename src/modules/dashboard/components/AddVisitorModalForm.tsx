@@ -12,18 +12,7 @@ import { useAuthContext } from '@/shared/hooks/useAuthContext'
 import { useLogContext } from '@/shared/hooks/useLogContext'
 import { useRoomContext } from '@/shared/hooks/useRoomContext'
 import { useVisitorContext } from '@/shared/hooks/useVisitorContext'
-import { validateCPF } from '@/shared/utils/validateCPF'
-
-const addVisitorSchema = z.object({
-  name: z.string().min(1, 'Nome é obrigatório'),
-  cpf: z
-    .string()
-    .refine(validateCPF, { message: 'CPF inválido' })
-    .min(1, 'CPF é obrigatória'),
-  email: z.string().email({ message: 'E-mail inválido' }),
-  birthDate: z.string(),
-  destination: z.string().min(0, 'Sala de destino é obrigatória'),
-})
+import { addVisitorSchema } from '../utils/addVisitorSchema'
 
 type AddVisitorFormData = z.infer<typeof addVisitorSchema>
 
